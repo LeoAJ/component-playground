@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { render } from "react-dom";
 import ReactDOMServer from "react-dom/server";
 import { transform } from "babel-standalone";
+import { hoc } from "../hoc";
 
 class Preview extends Component {
 
@@ -21,7 +22,7 @@ class Preview extends Component {
     error: null
   };
 
-  _compileCode = () => {
+  _compileCode() {
     const { code, context, noRender, scope } = this.props;
     const generateContextTypes = (c) => {
       return `{ ${Object.keys(c).map(val =>
@@ -57,14 +58,11 @@ class Preview extends Component {
       `, { presets: ["es2015", "react", "stage-1"] }).code;
     }
 
-  };
+  }
 
-  _setTimeout = (...args) => {
-    clearTimeout(this.timeoutID); //eslint-disable-line no-undef
-    this.timeoutID = setTimeout.apply(null, args); //eslint-disable-line no-undef
-  };
-
-  _executeCode = () => {
+  _executeCode() {
+    console.log('XXX');
+    console.log(this);
     const mountNode = this.refs.mount;
     const { scope, noRender, previewComponent } = this.props;
     const tempScope = [];
@@ -94,18 +92,7 @@ class Preview extends Component {
         this.setState({ error: err.toString() });
       }, 500);
     }
-  };
-
-  componentDidMount = () => {
-    this._executeCode();
-  };
-
-  componentDidUpdate = (prevProps) => {
-    clearTimeout(this.timeoutID); //eslint-disable-line
-    if (this.props.code !== prevProps.code) {
-      this._executeCode();
-    }
-  };
+  }
 
   render() {
     const { error } = this.state;
@@ -121,4 +108,4 @@ class Preview extends Component {
 
 }
 
-export default Preview;
+export default hoc(Preview);
