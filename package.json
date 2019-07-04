@@ -54,7 +54,9 @@
     "check": "npm run lint && npm run test",
     "check-ci": "npm run lint && npm run test-ci",
     "check-cov": "npm run lint && npm run test-cov",
-    "check-dev": "npm run lint && npm run test-dev"
+    "check-dev": "npm run lint && npm run test-dev",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "babel-cli": "^6.5.1",
@@ -75,7 +77,8 @@
     "rimraf": "^2.4.0",
     "style-loader": "~0.8.0",
     "url-loader": "~0.5.5",
-    "webpack": "^1.10.0"
+    "webpack": "^1.10.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0",
@@ -106,5 +109,6 @@
     "sinon": "^1.15.4",
     "sinon-chai": "^2.8.0",
     "webpack-dev-server": "^1.10.0"
-  }
+  },
+  "snyk": true
 }
